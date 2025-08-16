@@ -348,7 +348,7 @@ async def get_teacher_students(current_user: dict = Depends(get_current_user)):
         "grade": current_user["grade"]
     }).to_list(None)
     
-    return students
+    return serialize_doc(students)
 
 @app.get("/api/teacher/lessons")
 async def get_teacher_lessons(current_user: dict = Depends(get_current_user)):
