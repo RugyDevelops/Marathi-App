@@ -456,13 +456,13 @@ function TeacherDashboard({ user, onLogout }) {
     try {
       const [studentsRes, lessonsRes, assignmentsRes] = await Promise.all([
         axios.get(`${API_BASE}/api/teacher/students`, {
-          headers: { Authorization: `Bearer ${user.token}` }
+          headers: { Authorization: `Bearer ${user.access_token}` }
         }),
         axios.get(`${API_BASE}/api/teacher/lessons`, {
-          headers: { Authorization: `Bearer ${user.token}` }
+          headers: { Authorization: `Bearer ${user.access_token}` }
         }),
         axios.get(`${API_BASE}/api/teacher/assignments`, {
-          headers: { Authorization: `Bearer ${user.token}` }
+          headers: { Authorization: `Bearer ${user.access_token}` }
         })
       ]);
       
