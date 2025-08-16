@@ -420,11 +420,11 @@ async def get_teacher_assignments(current_user: dict = Depends(get_current_user)
     for assignment in assignments:
         # Get student details
         student = await users_collection.find_one({"id": assignment["student_id"]})
-        assignment["student"] = student
+        assignment["student"] = serialize_doc(student)
         
         # Get lesson details
         lesson = await lessons_collection.find_one({"id": assignment["lesson_id"]})
-        assignment["lesson"] = lesson
+        assignment["lesson"] = serialize_doc(lesson)
         
         # Check if submitted
         submission = await submissions_collection.find_one({
@@ -434,7 +434,7 @@ async def get_teacher_assignments(current_user: dict = Depends(get_current_user)
         if submission:
             assignment["submitted_at"] = submission["submitted_at"]
     
-    return assignments
+    return serialize_doc(assignments)
 
 # Health check
 @app.get("/api/health")
