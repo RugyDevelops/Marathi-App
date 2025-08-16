@@ -221,7 +221,7 @@ function StudentDashboard({ user, onLogout }) {
 
       await axios.post(`${API_BASE}/api/student/submit`, formData, {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.access_token}`,
           'Content-Type': 'multipart/form-data'
         }
       });
