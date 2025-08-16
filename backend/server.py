@@ -267,7 +267,7 @@ async def get_student_assignments(current_user: dict = Depends(get_current_user)
     # Get lesson details for each assignment
     for assignment in assignments:
         lesson = await lessons_collection.find_one({"id": assignment["lesson_id"]})
-        assignment["lesson"] = lesson
+        assignment["lesson"] = serialize_doc(lesson)
         
         # Check if submitted
         submission = await submissions_collection.find_one({
@@ -277,7 +277,7 @@ async def get_student_assignments(current_user: dict = Depends(get_current_user)
         if submission:
             assignment["submitted_at"] = submission["submitted_at"]
     
-    return assignments
+    return serialize_doc(assignments)
 
 @app.post("/api/student/submit")
 async def submit_assignment(
