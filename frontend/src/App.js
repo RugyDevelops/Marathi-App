@@ -186,7 +186,7 @@ function StudentDashboard({ user, onLogout }) {
   const fetchAssignments = async () => {
     try {
       const response = await axios.get(`${API_BASE}/api/student/assignments`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user.access_token}` }
       });
       setAssignments(response.data);
     } catch (error) {
