@@ -488,7 +488,7 @@ function TeacherDashboard({ user, onLogout }) {
         student_ids: selectedStudents,
         due_date: dueDate
       }, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user.access_token}` }
       });
       
       alert('Homework assigned successfully!');
