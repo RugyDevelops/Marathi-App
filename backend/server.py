@@ -359,7 +359,7 @@ async def get_teacher_lessons(current_user: dict = Depends(get_current_user)):
         "grade": current_user["grade"]
     }).to_list(None)
     
-    return lessons
+    return serialize_doc(lessons)
 
 @app.post("/api/teacher/assign")
 async def assign_homework(
