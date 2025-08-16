@@ -83,6 +83,21 @@ def create_access_token(data: dict):
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
+def serialize_doc(doc):
+    """Convert MongoDB document to JSON-serializable format"""
+    if doc is None:
+        return None
+    if isinstance(doc, list):
+        return [serialize_doc(item) for item in doc]
+    if isinstance(doc, dict):
+        serialized = {}
+        for key, value in doc.items():
+            if key == '_id':
+                continue  # Skip MongoDB _id field
+            serialized[key] = serialize_doc(value)
+        return serialized
+    return doc
+
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
